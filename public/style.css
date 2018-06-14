@@ -29,7 +29,8 @@ div.mainContent {
 }
 
 h1#title {
-  margin-top: 1500px;
+  margin-top: 1200px;
+  margin-bottom: 100px;
   color: black;
 }
 
@@ -38,12 +39,14 @@ h1 {
 }
 
 h1#bathrooms {
-  margin-bottom: 600px;
+  margin-bottom: 500px;
 }
 
-button {
-  margin-top: 300px;
+h1#teacherDesks {
+  margin-top: 200px;
+  margin-bottom: 100px;
 }
+
 
 .tables {
   display: flex;
@@ -53,39 +56,27 @@ button {
 }
 
 .table {
-  width: 300px;
+  width: 500px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   margin: 50px;
 }
 
-.quad {
+.trio, .quad {
   height: 200px;
-  width: 100px;
+  width: 200px;
   padding: 10px;
   margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
-.seat {
-  border: double;
-  height: 50px;
-  width: 50px;
-  padding: 22px;
-  text-align: center;
-  background-color: white;
-}
-
-.trio {
-  height: 300px;
-  width: 100px;
-  padding: 10px;
-  margin: 10px;
-}
-
-h1, .trio, .quad {
+.trio, .quad {
   border: 5px solid #696969;
 }
+
 
 button {
   background: #696969;
@@ -96,12 +87,13 @@ button {
   background-image: linear-gradient(to bottom, #696969, #696969);
   -webkit-border-radius: 28;
   -moz-border-radius: 28;
-  border-radius: 28px;
+  border-radius: 10px;
   font-family: Arial;
   color: #ffffff;
   font-size: 20px;
-  padding: 10px 20px 30px 30px;
+  padding: 10px 10px 10px 10px;
   text-decoration: none;
+  text-align: center;
 }
 
 button:hover {
@@ -114,9 +106,10 @@ button:hover {
   text-decoration: none;
 }
 
-input {
-  height: 500px;
-  width: 500px;
-  padding: 500px;
-  /* margin: 500px; */
+p {
+  font-size: 1.3em;
+  padding: 0.2em;
+  border: 2px solid #696969;
+  margin-top: 5px;
+  text-align: center;
 }

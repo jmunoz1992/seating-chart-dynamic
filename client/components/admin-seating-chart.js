@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import { Form, TextArea } from 'semantic-ui-react'
 
-class SeatingChart extends React.Component {
+class AdminSeatingChart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,52 +39,21 @@ class SeatingChart extends React.Component {
   }
 
   generateStudentSeats= () => {
-    const students =
-      `Michael Bush
-      Nick Bohannan
+    // let newStudents = this.state.students.split('\n');
+    // console.log('students length ', newStudents.length);
+    // const isOddAmtStudents = newStudents.length % 2 === 0;
+    // let filteredStudents = isOddAmtStudents ? this.sortTrio(this.state.students) : newStudents;
 
-      Diego Andres Hernandorena
-      Kevin Lim
-
-      Jerry Wu
-      Matthew Noesen
-
-      Jan Gierlach
-      Patrick Kilgore
-
-      Bradley Schwartz
-      Jessica Smith
-
-      Jacoby Kang
-      Raymond Chao
-
-      Brandon Yee
-      Chris Lusk
-      Jehoshuah Knapp
-
-      Matt Ehlinger
-      Richard Hui
-
-      Evelyn LaTour
-      Hollie Lambert
-
-      Brad Smith
-      Eliot Davis
-
-      Jeff Hauser
-      Kayleen Offringa
-
-      Brendan Meyer
-      Zohaib Farooqi`;
-
-    let filteredStudents = this.sortTrio(students);
+    let filteredStudents = this.sortTrio(this.state.students);
     let index = 1;
     filteredStudents.map(student => {
       if (student !== "") {
         const getTable = document.getElementById(`seat${index}`);
         const nameTag = document.createElement('p');
         const name = document.createTextNode(student.trim());
-        nameTag.appendChild(name);
+        const another = document.createTextNode('\n');
+        nameTag.appendChild(name)
+        nameTag.appendChild(another);
         getTable.appendChild(nameTag);
         index++;
       }
@@ -95,13 +65,11 @@ class SeatingChart extends React.Component {
     this.setState({students});
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('event in handle submit ', event.target.value);
-  }
-
   render() {
     const {students} = this.state;
+    const {user} = this.props;
+    console.log('students ', students);
+    console.log('user logged in ', this.props.user);
     return (
     <div className="mainContent">
       <h1 id="title">PAIR PROGRAMMING SEATING CHART</h1>
@@ -168,12 +136,19 @@ class SeatingChart extends React.Component {
               <div className="seat" id="seat29"></div>
           </div>
         </div>
+        {
+          user.isAdmin ?
+          <div className="table">
+              <h1>Paste Pairs In Box</h1>
+              <Form>
+                <TextArea placeholder='Insert Students Pairs Here' onChange={(evt) => this.handleChange(evt)} />
+              </Form>
+              <button id="randomize-btn" onClick={this.generateStudentSeats}>Generate Seats!</button>
+          </div> : null
+        }
       </div>
-      <h1 id="teacherDesks">Teacher Desks</h1>
-      <form onSubmit={(event) => { this.handleSubmit(event) }} >
-        <input onChange={(evt) => this.handleChange(evt)} value={students}/>
-        <button id="randomize-btn" onClick={this.generateStudentSeats}>Generate Seats!</button>
-      </form>
+      <h1 id="teacherDesks">Teachers' Desks</h1>
+      <br /><br />
     </div>)
   }
 };
@@ -181,10 +156,10 @@ class SeatingChart extends React.Component {
 /**
  * CONTAINER
  */
-const mapState = ({}) => ({});
+const mapState = ({user}) => ({user});
 
 const mapDispatch = () => {
   return {};
 };
 
-export default connect(mapState, mapDispatch)(SeatingChart)
+export default connect(mapState, mapDispatch)(AdminSeatingChart)
