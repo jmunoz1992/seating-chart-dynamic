@@ -1,29 +1,29 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import { Form, TextArea } from 'semantic-ui-react'
+import { Base64 } from 'js-base64'
 
 class StudentSeatingChart extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      students: '',
-    }
+  }
+
+  componentDidMount() {
+    Base64.extendString();
+    const encodedUrl = (window.location.pathname).slice(1);
+    const decodedStudents= encodedUrl.fromBase64();
+    this.generateStudentSeats(decodedStudents);
   }
 
   sortTrio = (students) => {
-    let newStudents = students.split('\n');
+    let newStudents = students.split('-');
     let filteredStudents = [];
     let index = 0;
     let count = 0;
-    let studentGrp = [];
 
     newStudents.forEach(student => {
       index++;
       if (student !== "") {
         count++;
-        studentGrp.push(student);
       } else {
         if (count === 3) {
           let beforeTrio = newStudents.slice(0, index - 4);
@@ -31,43 +31,32 @@ class StudentSeatingChart extends React.Component {
           let trioMoved = newStudents.slice(index - 4, index);
           filteredStudents = [...trioMoved, ...beforeTrio, ...afterTrio];
         }
-        studentGrp = [];
         count = 0;
       }
     });
     return filteredStudents;
   }
 
-  generateStudentSeats= () => {
+  generateStudentSeats = (students) => {
     // let newStudents = this.state.students.split('\n');
     // console.log('students length ', newStudents.length);
     // const isOddAmtStudents = newStudents.length % 2 === 0;
     // let filteredStudents = isOddAmtStudents ? this.sortTrio(this.state.students) : newStudents;
-
-    let filteredStudents = this.sortTrio(this.state.students);
+    let filteredStudents = this.sortTrio(students);
     let index = 1;
     filteredStudents.map(student => {
       if (student !== "") {
         const getTable = document.getElementById(`seat${index}`);
         const nameTag = document.createElement('p');
         const name = document.createTextNode(student.trim());
-        const another = document.createTextNode('\n');
         nameTag.appendChild(name)
-        nameTag.appendChild(another);
         getTable.appendChild(nameTag);
         index++;
       }
     });
   }
 
-  handleChange = (event) => {
-    const students = event.target.value;
-    this.setState({students});
-  }
-
   render() {
-    const {students} = this.state;
-    const {user} = this.props;
     return (
     <div className="mainContent">
       <h1 id="title">PAIR PROGRAMMING SEATING CHART</h1>
@@ -144,7 +133,7 @@ class StudentSeatingChart extends React.Component {
 /**
  * CONTAINER
  */
-const mapState = ({user}) => ({user});
+const mapState = ({user, students}) => ({user, students});
 
 const mapDispatch = () => {
   return {};

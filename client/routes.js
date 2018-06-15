@@ -25,6 +25,7 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             <Route path="/adminView" component={AdminSeatingChart} />
+            <Route component={StudentSeatingChart} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

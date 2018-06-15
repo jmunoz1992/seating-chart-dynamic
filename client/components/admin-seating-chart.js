@@ -1,14 +1,18 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import { Form, TextArea } from 'semantic-ui-react'
+import {addStudents} from "../store"
+import { Base64 } from 'js-base64'
+import {Link} from 'react-router-dom';
+
+import { BitlyClient } from 'bitly';
 
 class AdminSeatingChart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       students: '',
+      encodedUrl: '',
     }
   }
 
@@ -38,13 +42,39 @@ class AdminSeatingChart extends React.Component {
     return filteredStudents;
   }
 
+  condenseUrl = (encodedUrl) => {
+    let bitly = new BitlyClient('425de7bacec374ff0783b97816829f68b25c25b2', {});
+
+    bitly
+    .shorten(encodedUrl)
+    .then(function(result) {
+      console.log(result);
+      return result;
+    })
+    .catch(function(error) {
+      console.error(error);
+    });
+  }
+
   generateStudentSeats= () => {
     // let newStudents = this.state.students.split('\n');
     // console.log('students length ', newStudents.length);
     // const isOddAmtStudents = newStudents.length % 2 === 0;
-    // let filteredStudents = isOddAmtStudents ? this.sortTrio(this.state.students) : newStudents;
+    // let filteredStudentss = isOddAmtStudents ? this.sortTrio(this.state.students) : newStudents;
 
     let filteredStudents = this.sortTrio(this.state.students);
+
+    const baseEncode = Base64.encodeURI(filteredStudents.join('-'));
+    const isTherePort = window.location.port.length ? `:${window.location.port}` : '';
+    const encodedUrl =
+      window.location.protocol + '//' +
+      window.location.hostname +
+      isTherePort + '/' + baseEncode;
+
+    const condensedUrl = this.condenseUrl(encodedUrl);
+    console.log('condensed url ', condensedUrl);
+
+    this.setState({encodedUrl: condensedUrl});
     let index = 1;
     filteredStudents.map(student => {
       if (student !== "") {
@@ -66,10 +96,8 @@ class AdminSeatingChart extends React.Component {
   }
 
   render() {
-    const {students} = this.state;
     const {user} = this.props;
-    console.log('students ', students);
-    console.log('user logged in ', this.props.user);
+    const {encodedUrl} = this.state;
     return (
     <div className="mainContent">
       <h1 id="title">PAIR PROGRAMMING SEATING CHART</h1>
@@ -144,6 +172,13 @@ class AdminSeatingChart extends React.Component {
                 <TextArea placeholder='Insert Students Pairs Here' onChange={(evt) => this.handleChange(evt)} />
               </Form>
               <button id="randomize-btn" onClick={this.generateStudentSeats}>Generate Seats!</button>
+              {
+                encodedUrl.length ?
+                <div>
+                  <p>Slack this link: {encodedUrl}</p>
+                </div>
+                : null
+              }
           </div> : null
         }
       </div>
@@ -156,10 +191,14 @@ class AdminSeatingChart extends React.Component {
 /**
  * CONTAINER
  */
-const mapState = ({user}) => ({user});
+const mapState = ({user, students}) => ({user, students});
 
-const mapDispatch = () => {
-  return {};
+const mapDispatch = (dispatch, ownProps) => {
+  return {
+    addStudentPairs(students) {
+      dispatch(addStudents(students));
+    }
+  };
 };
 
 export default connect(mapState, mapDispatch)(AdminSeatingChart)
