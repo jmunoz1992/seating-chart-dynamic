@@ -78,7 +78,7 @@ h1#teacherDesks {
 }
 
 
-button {
+button#generate-btn {
   background: #696969;
   background-image: -webkit-linear-gradient(top, #696969, #696969);
   background-image: -moz-linear-gradient(top, #696969, #696969);
@@ -96,7 +96,7 @@ button {
   text-align: center;
 }
 
-button:hover {
+#generate-btn:hover {
   background: #696969;
   background-image: -webkit-linear-gradient(top, #696969, #696969);
   background-image: -moz-linear-gradient(top, #696969, #696969);
@@ -111,5 +111,23 @@ p {
   padding: 0.2em;
   border: 2px solid #696969;
   margin-top: 5px;
+  text-align: center;
+}
+
+button#copy-link {
+  background: #008000;
+  background-image: -webkit-linear-gradient(top, #008000, #008000);
+  background-image: -moz-linear-gradient(top, #008000, #008000);
+  background-image: -ms-linear-gradient(top, #008000, #008000);
+  background-image: -o-linear-gradient(top, #008000, #008000);
+  background-image: linear-gradient(to bottom, #008000, #008000);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 10px 10px 10px;
+  text-decoration: none;
   text-align: center;
 }

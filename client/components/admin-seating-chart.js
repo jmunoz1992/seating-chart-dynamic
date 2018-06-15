@@ -3,9 +3,8 @@ import {connect} from 'react-redux'
 import { Form, TextArea } from 'semantic-ui-react'
 import {addStudents} from "../store"
 import { Base64 } from 'js-base64'
+import copy from 'copy-to-clipboard';
 import {Link} from 'react-router-dom';
-
-import { BitlyClient } from 'bitly';
 
 class AdminSeatingChart extends React.Component {
   constructor(props) {
@@ -42,28 +41,15 @@ class AdminSeatingChart extends React.Component {
     return filteredStudents;
   }
 
-  condenseUrl = (encodedUrl) => {
-    let bitly = new BitlyClient('425de7bacec374ff0783b97816829f68b25c25b2', {});
-
-    bitly
-    .shorten(encodedUrl)
-    .then(function(result) {
-      console.log(result);
-      return result;
-    })
-    .catch(function(error) {
-      console.error(error);
-    });
-  }
 
   generateStudentSeats= () => {
     // let newStudents = this.state.students.split('\n');
     // console.log('students length ', newStudents.length);
     // const isOddAmtStudents = newStudents.length % 2 === 0;
     // let filteredStudentss = isOddAmtStudents ? this.sortTrio(this.state.students) : newStudents;
-
+    console.log('getting in gen seats');
     let filteredStudents = this.sortTrio(this.state.students);
-
+    console.log('filtered students ', filteredStudents);
     const baseEncode = Base64.encodeURI(filteredStudents.join('-'));
     const isTherePort = window.location.port.length ? `:${window.location.port}` : '';
     const encodedUrl =
@@ -71,10 +57,7 @@ class AdminSeatingChart extends React.Component {
       window.location.hostname +
       isTherePort + '/' + baseEncode;
 
-    const condensedUrl = this.condenseUrl(encodedUrl);
-    console.log('condensed url ', condensedUrl);
-
-    this.setState({encodedUrl: condensedUrl});
+    this.setState({encodedUrl});
     let index = 1;
     filteredStudents.map(student => {
       if (student !== "") {
@@ -93,6 +76,14 @@ class AdminSeatingChart extends React.Component {
   handleChange = (event) => {
     const students = event.target.value;
     this.setState({students});
+  }
+
+  copyGenSeatsLink = () => {
+    const urlToCopy = this.state.encodedUrl;
+    copy(urlToCopy, {
+      debug: true,
+      message: 'Press this button to copy',
+    });
   }
 
   render() {
@@ -171,11 +162,11 @@ class AdminSeatingChart extends React.Component {
               <Form>
                 <TextArea placeholder='Insert Students Pairs Here' onChange={(evt) => this.handleChange(evt)} />
               </Form>
-              <button id="randomize-btn" onClick={this.generateStudentSeats}>Generate Seats!</button>
+              <button id="generate-btn" onClick={this.generateStudentSeats}>Generate Seats!</button>
               {
                 encodedUrl.length ?
                 <div>
-                  <p>Slack this link: {encodedUrl}</p>
+                  <button id="copy-link" onClick={this.copyGenSeatsLink}>Copy Link</button>
                 </div>
                 : null
               }
