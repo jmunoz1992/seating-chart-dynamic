@@ -37,20 +37,34 @@ class StudentSeatingChart extends React.Component {
     return filteredStudents;
   }
 
-  generateStudentSeats = (students) => {
-    // let newStudents = this.state.students.split('\n');
-    // console.log('students length ', newStudents.length);
-    // const isOddAmtStudents = newStudents.length % 2 === 0;
-    // let filteredStudents = isOddAmtStudents ? this.sortTrio(this.state.students) : newStudents;
-    let filteredStudents = this.sortTrio(students);
+  generateStudentSeats = (studentsDecoded) => {
+    const students = studentsDecoded.split('-').filter(student => student !== '');
+
+    let filteredStudents = [];
+
+    if(students.length % 2 === 1) {
+      filteredStudents = this.sortTrio(studentsDecoded);
+    } else {
+      filteredStudents = studentsDecoded.split('-');
+    }
+
     let index = 1;
     filteredStudents.map(student => {
       if (student !== "") {
-        const getTable = document.getElementById(`seat${index}`);
+        const grabTable = document.getElementById(`quad${index}`)
+        const makeGrps = document.createElement('div');
+        makeGrps.classList.add('seat');
+        if (makeGrps.childNodes.length) {
+          makeGrps.removeChild(makeGrps.childNodes[0]);
+        }
         const nameTag = document.createElement('p');
         const name = document.createTextNode(student.trim());
+        const another = document.createTextNode('\n');
         nameTag.appendChild(name)
-        getTable.appendChild(nameTag);
+        nameTag.appendChild(another);
+        makeGrps.appendChild(nameTag);
+        grabTable.appendChild(makeGrps);
+      } else {
         index++;
       }
     });
@@ -63,65 +77,22 @@ class StudentSeatingChart extends React.Component {
       <h1 id="bathrooms">Bathrooms</h1>
       <div className="tables">
         <div className="table">
-          <div className="trio">
-              <div className="seat" id="seat1"></div>
-              <div className="seat" id="seat2"></div>
-              <div className="seat" id="seat3"></div>
-          </div>
-          <div className="quad">
-              <div className="seat" id="seat4"></div>
-              <div className="seat" id="seat5"></div>
-          </div>
-          <div className="quad">
-              <div className="seat" id="seat6"></div>
-              <div className="seat" id="seat7"></div>
-          </div>
-          <div className="quad">
-              <div className="seat" id="seat8"></div>
-              <div className="seat" id="seat9"></div>
-          </div>
-          <div className="quad">
-              <div className="seat" id="seat10"></div>
-              <div className="seat" id="seat11"></div>
-          </div>
-          <div className="quad">
-              <div className="seat" id="seat12"></div>
-              <div className="seat" id="seat13"></div>
-          </div>
-          <div className="quad">
-              <div className="seat" id="seat14"></div>
-              <div className="seat" id="seat15"></div>
-          </div>
-          <div className="quad">
-              <div className="seat" id="seat16"></div>
-              <div className="seat" id="seat17"></div>
-          </div>
+          <div className="quad" id="quad1" />
+          <div className="quad" id="quad2" />
+          <div className="quad" id="quad3" />
+          <div className="quad" id="quad4" />
+          <div className="quad" id="quad5" />
+          <div className="quad" id="quad6" />
+          <div className="quad" id="quad7" />
+          <div className="quad" id="quad8" />
         </div>
         <div className="table">
-          <div className="quad">
-              <div className="seat" id="seat18"></div>
-              <div className="seat" id="seat19"></div>
-          </div>
-          <div className="quad">
-              <div className="seat" id="seat20"></div>
-              <div className="seat" id="seat21"></div>
-          </div>
-          <div className="quad">
-              <div className="seat" id="seat22"></div>
-              <div className="seat" id="seat23"></div>
-          </div>
-          <div className="quad">
-              <div className="seat" id="seat24"></div>
-              <div className="seat" id="seat25"></div>
-          </div>
-          <div className="quad">
-              <div className="seat" id="seat26"></div>
-              <div className="seat" id="seat27"></div>
-          </div>
-          <div className="quad">
-              <div className="seat" id="seat28"></div>
-              <div className="seat" id="seat29"></div>
-          </div>
+          <div className="quad" id="quad9" />
+          <div className="quad" id="quad10" />
+          <div className="quad" id="quad11" />
+          <div className="quad" id="quad12" />
+          <div className="quad" id="quad13" />
+          <div className="quad" id="quad14" />
         </div>
       </div>
       <h1 id="teacherDesks">Teachers' Desks</h1>

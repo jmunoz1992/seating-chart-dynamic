@@ -21,8 +21,6 @@ async function seed() {
   // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
   // executed until that promise resolves!
   const users = await Promise.all([
-    User.create({username: 'cody123', password: '123'}),
-    User.create({username: 'murphy123', password: '123'}),
     User.create({username: 'instructor', password: 'admin', isAdmin: true})
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
