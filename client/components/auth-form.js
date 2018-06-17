@@ -2,36 +2,65 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import { Button, Message, Form, Header } from 'semantic-ui-react'
 
 /**
  * COMPONENT
  */
-const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+class AuthForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      noUsername: false,
+      noPassword: false,
+    }
+  }
 
-  return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>username</small>
-          </label>
-          <input name="username" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      {/*<a href="/auth/google">{displayName} with Google</a>*/}
-    </div>
-  )
+  handleSubmit = (evt) => {
+    evt.preventDefault()
+    const formName = evt.target.name
+    const username = evt.target.username.value
+    const password = evt.target.password.value
+    if(!username.length) {
+      this.setState({noUsername: true})
+    } else {
+      this.setState({noUsername: false})
+    }
+    if(!password.length) {
+      this.setState({noPassword: true})
+    } else {
+      this.setState({noPassword: false})
+    }
+    if(username.length && password.length) {
+      this.setState({noPassword: true, noUsername: true})
+      this.props.getUser(username, password, formName);
+    }
+  }
+
+  render() {
+    const {name, displayName, error} = this.props;
+    const {noPassword, noUsername} = this.state;
+    return (
+      <div id="login-form">
+        <Form onSubmit={this.handleSubmit} name={name} error>
+          <Form.Field>
+            <Header as='h1'>Username</Header>
+            <input placeholder='Username' name="username" type="text" />
+          </Form.Field>
+          {noUsername ? <Message error header='Username required' /> : null}
+          <br /><br />
+          <Form.Field>
+            <Header as='h1'>Password</Header>
+            <input placeholder='Password' name="password" type="password" />
+          </Form.Field>
+          {noPassword ? <Message error header='Password required' /> : null}
+          <br /><br />
+          <Button type='submit'>{displayName}</Button>
+          {error && error.response && <div> {error.response.data} </div>}
+        </Form>
+      </div>
+    )
+  }
 }
 
 /**
@@ -59,12 +88,8 @@ const mapSignup = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleSubmit(evt) {
-      evt.preventDefault()
-      const formName = evt.target.name
-      const username = evt.target.username.value
-      const password = evt.target.password.value
-      dispatch(auth(username, password, formName))
+    getUser(username, password, formName) {
+        dispatch(auth(username, password, formName))
     }
   }
 }
@@ -78,6 +103,5 @@ export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
 AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
   error: PropTypes.object
 }
