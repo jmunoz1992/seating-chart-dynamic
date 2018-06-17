@@ -32,8 +32,8 @@ class AuthForm extends React.Component {
       this.setState({noPassword: false})
     }
     if(username.length && password.length) {
-      this.setState({noPassword: true, noUsername: true})
       this.props.getUser(username, password, formName);
+      this.setState({noPassword: true, noUsername: true})
     }
   }
 
