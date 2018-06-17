@@ -1,4 +1,4 @@
-export const sortTrio = (students, splitter) => {
+export const SortTrio = (students, splitter) => {
   let newStudents = students.split(splitter);
   let filteredStudents = [];
   let index = 0;

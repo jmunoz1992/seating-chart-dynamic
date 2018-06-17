@@ -5,7 +5,7 @@ import {auth} from '../store'
 import { Button, Message, Form, Header } from 'semantic-ui-react'
 
 /**
- * COMPONENT
+ * Logs in instructor based on given username and password
  */
 class AuthForm extends React.Component {
   constructor(props) {

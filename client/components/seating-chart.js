@@ -1,25 +1,30 @@
 import React from 'react';
 
+/*
+  Displays current seating layout in divs.
+  'group', 'table', and 'tables' classname refers to styling.
+  'group#num' is used in seats algorithm generator.
+*/
 export const SeatingChart = () => {
   return (
     <div className="tables">
       <div className="table">
-        <div className="quad" id="quad1" />
-        <div className="quad" id="quad2" />
-        <div className="quad" id="quad3" />
-        <div className="quad" id="quad4" />
-        <div className="quad" id="quad5" />
-        <div className="quad" id="quad6" />
-        <div className="quad" id="quad7" />
-        <div className="quad" id="quad8" />
+        <div className="group" id="group1" />
+        <div className="group" id="group2" />
+        <div className="group" id="group3" />
+        <div className="group" id="group4" />
+        <div className="group" id="group5" />
+        <div className="group" id="group6" />
+        <div className="group" id="group7" />
+        <div className="group" id="group8" />
       </div>
       <div className="table">
-        <div className="quad" id="quad9" />
-        <div className="quad" id="quad10" />
-        <div className="quad" id="quad11" />
-        <div className="quad" id="quad12" />
-        <div className="quad" id="quad13" />
-        <div className="quad" id="quad14" />
+        <div className="group" id="group9" />
+        <div className="group" id="group10" />
+        <div className="group" id="group11" />
+        <div className="group" id="group12" />
+        <div className="group" id="group13" />
+        <div className="group" id="group14" />
       </div>
     </div>
   )

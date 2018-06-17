@@ -36,7 +36,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.15.3",
-    "bitly": "^6.0.6",
+    "bitly": "^5.1.7",
     "body-parser": "^1.16.1",
     "compression": "^1.7.1",
     "connect-session-sequelize": "^4.1.0",

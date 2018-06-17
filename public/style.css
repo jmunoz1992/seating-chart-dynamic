@@ -63,7 +63,7 @@ h1#teacherDesks {
   margin: 50px;
 }
 
-.trio, .quad {
+.trio, .group {
   height: 200px;
   width: 200px;
   padding: 10px;
@@ -73,7 +73,7 @@ h1#teacherDesks {
   justify-content: space-evenly;
 }
 
-.trio, .quad {
+.trio, .group {
   border: 5px solid #696969;
 }
 
