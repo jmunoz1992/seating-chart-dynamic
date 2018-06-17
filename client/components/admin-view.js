@@ -39,7 +39,7 @@ class AdminView extends React.Component {
     const {encodedUrl} = this.state;
     return (
     <div className="mainContent">
-      <h1 id="title">PAIR PROGRAMMING SEATING CHART</h1>
+      <h1 id="title">PAIR PROGRAMMING SEATING CHART ADMIN VIEW</h1>
       <h1 id="bathrooms">Bathrooms</h1>
       <div className="tables">
         <SeatingChart />
