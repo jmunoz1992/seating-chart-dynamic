@@ -6,7 +6,6 @@ export const generatedSeats = (students, splitter) => {
   let filteredStudents = [];
 
   if(studentsToParse.length % 2 === 1) {
-
     filteredStudents = sortTrio(students, splitter);
   } else {
     filteredStudents = students.split(splitter);
