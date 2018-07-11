@@ -45,7 +45,7 @@ class AdminView extends React.Component {
   */
   generateStudentSeats= (evt) => {
     evt.preventDefault();
-    const getTable = document.getElementById(`group2`);
+    const getTable = document.getElementById(`group3`);
     if (getTable.childNodes.length) {
       return;
     }

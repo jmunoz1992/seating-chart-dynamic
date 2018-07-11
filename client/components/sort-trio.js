@@ -23,11 +23,11 @@ export const SortTrio = (students, splitter) => {
     }
   });
   if(checkIfLastTrio(newStudents)) {
-    const endingIndex = newStudents.length - 3;
+    console.log('getting into last trio')
+    const endingIndex = newStudents.length - 4;
     let beforeTrio = newStudents.slice(0, endingIndex);
     let theTrio = newStudents.slice(endingIndex);
-    let filler = [""]
-    filteredStudents = [...theTrio, ...filler, ...beforeTrio, ];
+    filteredStudents = [...theTrio, ...beforeTrio, ];
   }
   console.log('filteredStudent ', filteredStudents);
   filteredStudents = filteredStudents.map(student => student.trim());
