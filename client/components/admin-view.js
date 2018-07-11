@@ -43,7 +43,8 @@ class AdminView extends React.Component {
     from the input box and generates seats for each group (pair and/or trio)
     as well as an encoded url to slack a student view layout.
   */
-  generateStudentSeats= () => {
+  generateStudentSeats= (evt) => {
+    evt.preventDefault();
     const seatsGenerated = GeneratedSeats(this.state.students, '\n');
     this.encodeUrl(seatsGenerated);
   }
@@ -69,11 +70,11 @@ class AdminView extends React.Component {
               <Form>
                 <TextArea placeholder='Insert Students Pairs Here' onChange={(evt) => this.handleChange(evt)} />
               </Form>
-              <button id="generate-btn" onClick={this.generateStudentSeats}>Generate Seats!</button>
+              <button id="generate-btn" onClick={(evt) => {this.generateStudentSeats(evt)}}>Generate Seats!</button>
               {
                 encodedUrl.length ?
                 <div>
-                  <button id="copy-link" onClick={copy(this.state.encodedUrl)}>Copy Link</button>
+                  <button id="copy-link" onClick={() => {copy(this.state.encodedUrl)}}>Copy Link</button>
                 </div>
                 : null
               }

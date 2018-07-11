@@ -18,9 +18,7 @@ import { SortTrio } from './sort-trio';
 */
 export const GeneratedSeats = (students, splitter) => {
   let studentsToParse = students.split(splitter).filter(student => student !== '');
-
-  let filteredStudents = [];
-
+  let filteredStudents;
   if(studentsToParse.length % 2 === 1) {
     filteredStudents = SortTrio(students, splitter);
   } else {
