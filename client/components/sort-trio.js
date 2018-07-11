@@ -4,7 +4,9 @@ export const SortTrio = (students, splitter) => {
   let index = 0;
   let count = 0;
   console.log('new students in sort trio ', newStudents)
-
+  if(newStudents[newStudents.length - 1] !== "") {
+    newStudents.push("")
+  }
   newStudents.forEach(student => {
     index++;
     if (student !== "") {
@@ -21,11 +23,13 @@ export const SortTrio = (students, splitter) => {
     }
   });
   if(checkIfLastTrio(newStudents)) {
-    const endingIndex = newStudents.length - 3
+    const endingIndex = newStudents.length - 3;
     let beforeTrio = newStudents.slice(0, endingIndex);
     let theTrio = newStudents.slice(endingIndex);
-    filteredStudents = [...beforeTrio, ...theTrio];
+    let filler = [""]
+    filteredStudents = [...theTrio, ...filler, ...beforeTrio, ];
   }
+  console.log('filteredStudent ', filteredStudents);
   filteredStudents = filteredStudents.map(student => student.trim());
   return filteredStudents;
 }
