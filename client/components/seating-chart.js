@@ -15,16 +15,14 @@ export const SeatingChart = () => {
         <div className="group" id="group4" />
         <div className="group" id="group5" />
         <div className="group" id="group6" />
-        <div className="group" id="group7" />
-        <div className="group" id="group8" />
       </div>
       <div className="table">
+        <div className="group" id="group7" />
+        <div className="group" id="group8" />
         <div className="group" id="group9" />
         <div className="group" id="group10" />
         <div className="group" id="group11" />
         <div className="group" id="group12" />
-        <div className="group" id="group13" />
-        <div className="group" id="group14" />
       </div>
     </div>
   )

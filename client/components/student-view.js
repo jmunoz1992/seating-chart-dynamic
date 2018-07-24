@@ -21,7 +21,7 @@ export default class StudentView extends React.Component {
       <h1 id="title">PAIR PROGRAMMING SEATING CHART</h1>
       <h1 id="bathrooms">Bathrooms</h1>
       <SeatingChart />
-      <h1 id="teacherDesks">Teachers' Desks</h1>
+      <h1 id="teacherDesks">Fellows' Desks</h1>
       <br /><br />
     </div>)
   }

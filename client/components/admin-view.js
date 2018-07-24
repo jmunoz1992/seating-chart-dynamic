@@ -85,7 +85,7 @@ class AdminView extends React.Component {
           </div> : null
         }
       </div>
-      <h1 id="teacherDesks">Teachers' Desks</h1>
+      <h1 id="teacherDesks">Fellows' Desks</h1>
       <br /><br />
     </div>)
   }
